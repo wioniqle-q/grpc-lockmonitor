@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "MonitorGrpcServer";
+
+package LockMonitor;
+
+service LockManager {
+  rpc AcquireLock(LockRequest) returns (LockResponse) {}
+}
+
+message LockRequest {
+  int64 transactionId = 1;
+  int32 resourceId = 2;
+  LockMode lockMode = 3;
+}
+
+message LockResponse {
+  bool success = 1;
+}
+
+enum LockMode {
+  NL = 0;
+  IS = 1;
+  IX = 2;
+  S = 3;
+  SIX = 4;
+  X = 5;
+}
